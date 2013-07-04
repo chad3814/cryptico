@@ -316,6 +316,14 @@ function SeededRandom(){}
 
 function SRnextBytes(ba)
 {
+    if(window.crypto && window.crypto.getRandomValues){
+        var buffer = new Uint8Array(ba.length);
+        window.crypto.getRandomValues(buffer);
+        for(var i = 0; i < ba.length; i++){
+            ba[i]=buffer[i];
+        }
+        return;
+    }
     var i;
     for(i = 0; i < ba.length; i++)
     {
